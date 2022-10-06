@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
     ? await urlSource.text()
     : `Add a course url by adding "?url=YOUR_COURSE_URL" to the end of the address bar.
 
-  Ex: https://alphascript.netlify.com?course?url=https://git.door43.org/unfoldingWord/en_tn/raw/branch/master/README.md
+  Ex: https://alphascript.netlify.app?course?url=https://git.door43.org/unfoldingWord/en_tn/raw/branch/master/README.md
   `;
 
   const mdxSource = await serialize(source, { parseFrontmatter: true });
