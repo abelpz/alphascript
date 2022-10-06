@@ -17,7 +17,7 @@ export default function Course({ mdxSource }) {
 
 export async function getServerSideProps(context) {
   const { query } = context;
-  const urlSource = await fetch(query.url);
+  const urlSource = query.url && (await fetch(query.url));
   // MDX text - can be from a local file, database, anywhere
   //   const source = `---
   // title: Test
@@ -25,7 +25,12 @@ export async function getServerSideProps(context) {
 
   // Some **mdx** text, with a component <Test name={frontmatter.title}/>
   //   `;
-  const source = await urlSource.text();
+  const source = urlSource
+    ? await urlSource.text()
+    : `Add a course url by adding "?url=YOUR_COURSE_URL" to the end of the address bar.
+
+  Ex: https://alphascript.netlify.com?course?url=https://git.door43.org/unfoldingWord/en_tn/raw/branch/master/README.md
+  `;
 
   const mdxSource = await serialize(source, { parseFrontmatter: true });
   return { props: { mdxSource } };
